@@ -1,0 +1,51 @@
+{
+  "name": "saitho-backmerge-test",
+  "dependencies": {
+    "semantic-release": "^17.3.1",
+    "@semantic-release/commit-analyzer": "^8.0.1",
+    "@semantic-release/release-notes-generator": "^9.0.1",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/npm": "^7.0.9",
+    "@semantic-release/git": "^9.0.0",
+    "@saithodev/semantic-release-backmerge": "^1.2.0"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      [
+        "@semantic-release/npm",
+        {
+          "pkgRoot": ".",
+          "npmPublish": false
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "CHANGELOG.md",
+            "package.json",
+            "package-lock.json"
+          ],
+          "message": "chore(release): ${nextRelease.version} \n\n${nextRelease.notes}"
+        }
+      ],
+      "@saithodev/semantic-release-backmerge"
+    ],
+    "branches": [
+      {
+        "name": "master",
+        "channel": "latest"
+      },
+      {
+        "name": "develop",
+        "channel": "next",
+        "prerelease": "next"
+      }
+    ],
+    "tagFormat": "${version}"
+  },
+  "version": "1.1.0-next.1"
+}
